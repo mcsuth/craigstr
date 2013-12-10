@@ -1,0 +1,18 @@
+<div id="search">
+  <form method="post" action="/">
+    <input type="text" placeholder="Search For Item" name="q">
+    <input type="submit">
+  </form>
+  <br>
+  <div id="search_results"></div>
+</div>
+
+<SCRIPT TYPE="text/javascript">
+  $(document).ready(function() {
+    $.getJSON("/search", function(data){
+      $.each(data, function(item_title, price) {
+        $('#search_results').append('<ul id="item">' + item_title + ' - ' + price + '</ul>')
+      })
+    })
+  })
+</SCRIPT>
