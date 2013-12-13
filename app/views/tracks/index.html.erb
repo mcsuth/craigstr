@@ -1,18 +1,72 @@
-<div id="search">
-  <form method="post" action="/">
-    <input type="text" placeholder="Search For Item" name="q">
-    <input type="submit">
-  </form>
-  <br>
-  <div id="search_results"></div>
+<div id="tracked_list">
+
+  <!-- MODAL BUTTON TO POPUP -->
+  <button class="md-trigger" data-modal="modal-7">Add Items To Track</button>
+  <!-- MODAL BUTTON TO POPUP -->
+
+  <!-- THE OVERLAY ELEMENT FOR THE MODAL -->
+  <div class="md-overlay"></div>
+  <!-- THE OVERLAY ELEMENT FOR THE MODAL -->
+
+  <!-- MODAL POPUP TO ADD TO TRACK LIST-->
+        <div class="md-modal md-effect-7" id="modal-7">
+          <div class="md-content">
+            <h3>Tracked Items on Craigslist</h3>
+            <div>
+              <center>
+                <input type="text" class="formbox_item" placeholder="Item"></input>
+                <input type="text" class="formbox_lowrange" placeholder="Low"></input>
+                <input type="text" class="formbox_highrange" placeholder="High"></input>
+                <%= form_for @track, :remote => true do |f| %>
+                <%= f.select :location, @places , class: "formbox_location" %>
+                <%= f.hidden_field :user_id, value: 1, class: "formbox_user_id"%>
+                <% end %>
+                <button class="md-close">Track</button>
+
+              </center>
+            </div>
+          </div>
+        </div>
+  <!-- MODAL POPUP TO ADD TO TRACK LIST-->
+
+  <!-- DIV THAT ITEMS APPEND TO -->
+    <div id="tracked_items">
+      <% @tracks.reverse.each do |track| %>
+        <div class="div_that_tracked_items_append_to" data-id="<%= track.id %>">
+          <a id="craigslist_link" href="http://<%= track.location %>.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=<%= track.high_cost %>&minAsk=<%= track.low_cost %>&query=<%= track.title %>"><%= track.title %></a><br>
+          <%= track.location %><br>
+          <%= track.low_cost %> - <%= track.high_cost %><br>
+          <%= link_to "I Got It!", track_path(track), :method => "delete", :remote => true %>
+        </div>
+      <% end %>
+    </div>
+  <!-- DIV THAT ITEMS APPEND TO -->
+
 </div>
 
-<SCRIPT TYPE="text/javascript">
+<script type="text/javascript">
   $(document).ready(function() {
-    $.getJSON("/search", function(data){
-      $.each(data, function(item_title, price) {
-        $('#search_results').append('<ul id="item">' + item_title + ' - ' + price + '</ul>')
+    $('button').on('click', function() {
+      var item = $('.formbox_item').val();
+      var low_cost = $('.formbox_lowrange').val().replace(" ","");
+      var high_cost = $('.formbox_highrange').val().replace(" ","");
+      var location = $('select').val();
+      var url = "http://" + location + ".craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=" + high_cost + "&minAsk=" + low_cost + "&query=" + item.replace(" ","%20")
+      var user_id = $('.formbox_user_id').val();
+      $.ajax({
+        url: "/create",
+        data: {
+          item: item,
+          low_cost: low_cost,
+          high_cost: high_cost,
+          location: location,
+          url: url,
+          user_id: user_id
+        },
+        type: "PUT"
       })
+
+      $('form').val("");
     })
   })
-</SCRIPT>
+</script>

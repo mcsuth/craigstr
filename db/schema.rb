@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210021748) do
+ActiveRecord::Schema.define(:version => 20131212220157) do
 
   create_table "tracks", :force => true do |t|
     t.string   "title"
@@ -19,12 +19,9 @@ ActiveRecord::Schema.define(:version => 20131210021748) do
     t.integer  "high_cost"
     t.string   "location"
     t.integer  "user_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.boolean  "email"
-    t.boolean  "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "url"
   end
 
 end

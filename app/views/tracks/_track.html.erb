@@ -1,0 +1,6 @@
+<div class="div_that_tracked_items_append_to" data-id="<%= track.id %>">
+  <a id="craigslist_link" href="http://<%= track.location %>.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=<%= track.high_cost %>&minAsk=<%= track.low_cost %>&query=<%= track.title %>"><%= track.title %></a><br>
+  <%= track.location %><br>
+  <%= track.low_cost %> - <%= track.high_cost %><br>
+  <%= link_to "I Got It!", track_path(track), :method => "delete", :remote => true %>
+</div>
