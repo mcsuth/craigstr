@@ -1,6 +1,8 @@
 require 'pry'
 
 class TracksController < ApplicationController
+  before_filter :authenticate_user!, except: [:index]
+
   def index
     @tracks = Track.all
     @track = Track.new

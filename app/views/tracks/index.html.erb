@@ -1,3 +1,5 @@
+<% if current_user%>
+
 <div id="tracked_list">
 
   <!-- MODAL BUTTON TO POPUP -->
@@ -19,7 +21,7 @@
           <input type="text" class="formbox_highrange" placeholder="High"></input>
           <%= form_for @track, :remote => true do |f| %>
           <%= f.select :location, @places , class: "formbox_location" %>
-          <%= f.hidden_field :user_id, value: 1, class: "formbox_user_id"%>
+          <%= f.hidden_field :user_id, value: current_user.id, class: "formbox_user_id"%>
           <% end %>
           <button class="md-close">Track</button>
 
@@ -43,7 +45,9 @@
   <!-- DIV THAT ITEMS APPEND TO -->
 
 </div>
-
+<% else %>
+  <p><%= notice %><%= alert %></p>
+<% end %>
 <script type="text/javascript">
   $(document).ready(function() {
     $('button').on('click', function() {
