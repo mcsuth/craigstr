@@ -29,4 +29,7 @@ group :test, :development do
    gem 'rspec-rails'
 end
 
-gem 'sidekiq'
+gem 'devise'
+# gem 'sidekiq'
+# gem 'sinatra', require: false
+# gem 'slim'
