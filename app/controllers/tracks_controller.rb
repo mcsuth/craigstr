@@ -431,9 +431,28 @@ class TracksController < ApplicationController
                           url: params[:url],
                           user_id: params[:user_id]
                           )
-    respond_to do |format|
-      format.js
+    @item_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
+    @item_prices = Nokogiri::HTML(open(@track.url)).css('.price')
+
+
+    @item_titles.each do |item|
+      parsed_item = item.attr('href')
+      puts parsed_item
+      if !parsed_item.include?('http')
+        puts "no http"
+        puts @track.location
+      end
+      # binding.pry
     end
+
+    # if @item_titles.include?(@track.title)
+    #   puts "there was something on CL that has this"
+    # else
+    #   puts "nothing was found on CL"
+    # end
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   def destroy
@@ -444,28 +463,28 @@ class TracksController < ApplicationController
     end
   end
 
-  def search
-    url = "http://sfbay.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=555&minAsk=333&query=honda"
-    # url = "http://[LOCATION_CODE].craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=[MAX_PRICE]&minAsk=[MIN_PRICE]&query=[SEARCHED_ITEM]"
-    @item_titles = Nokogiri::HTML(open(url)).css('.pl a')
-    @item_prices = Nokogiri::HTML(open(url)).css('.price')
-    titles = []
-    prices = []
-    @item_titles.each do |item_title|
-      titles << item_title.text
-    end
-    @item_prices.each do |item_price|
-      prices << item_price.text
-    end
-    test = Hash[titles.zip prices]
-    render json: test
-  end
+  # def search
+  #   url = "http://sfbay.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=555&minAsk=333&query=honda"
+  #   # url = "http://[LOCATION_CODE].craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=[MAX_PRICE]&minAsk=[MIN_PRICE]&query=[SEARCHED_ITEM]"
+  #   @item_titles = Nokogiri::HTML(open(url)).css('.pl a')
+  #   @item_prices = Nokogiri::HTML(open(url)).css('.price')
+  #   titles = []
+  #   prices = []
+  #   @item_titles.each do |item_title|
+  #     titles << item_title.text
+  #   end
+  #   @item_prices.each do |item_price|
+  #     prices << item_price.text
+  #   end
+  #   # test = Hash[titles.zip prices]
+  #   # render json: test
+  # end
 
-  def link
-    url = "http://sfbay.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=555&minAsk=333&query=" + $searched_item
-    @links = Nokogiri::HTML(open(url)).css('.pl a').map { |link| link['href'] }
-    render json: @links
-  end
+  # def link
+  #   url = "http://sfbay.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=555&minAsk=333&query=" + $searched_item
+  #   @links = Nokogiri::HTML(open(url)).css('.pl a').map { |link| link['href'] }
+  #   render json: @links
+  # end
 
 end
 

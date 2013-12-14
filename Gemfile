@@ -25,6 +25,8 @@ end
 
 gem 'jquery-rails'
 
- group :test, :development do
-     gem 'rspec-rails'
- end
+group :test, :development do
+   gem 'rspec-rails'
+end
+
+gem 'sidekiq'

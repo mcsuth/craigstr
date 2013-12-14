@@ -9,24 +9,24 @@
   <!-- THE OVERLAY ELEMENT FOR THE MODAL -->
 
   <!-- MODAL POPUP TO ADD TO TRACK LIST-->
-        <div class="md-modal md-effect-7" id="modal-7">
-          <div class="md-content">
-            <h3>Tracked Items on Craigslist</h3>
-            <div>
-              <center>
-                <input type="text" class="formbox_item" placeholder="Item"></input>
-                <input type="text" class="formbox_lowrange" placeholder="Low"></input>
-                <input type="text" class="formbox_highrange" placeholder="High"></input>
-                <%= form_for @track, :remote => true do |f| %>
-                <%= f.select :location, @places , class: "formbox_location" %>
-                <%= f.hidden_field :user_id, value: 1, class: "formbox_user_id"%>
-                <% end %>
-                <button class="md-close">Track</button>
+  <div class="md-modal md-effect-7" id="modal-7">
+    <div class="md-content">
+      <h3>Tracked Items on Craigslist</h3>
+      <div>
+        <center>
+          <input type="text" class="formbox_item" placeholder="Item"></input>
+          <input type="text" class="formbox_lowrange" placeholder="Low"></input>
+          <input type="text" class="formbox_highrange" placeholder="High"></input>
+          <%= form_for @track, :remote => true do |f| %>
+          <%= f.select :location, @places , class: "formbox_location" %>
+          <%= f.hidden_field :user_id, value: 1, class: "formbox_user_id"%>
+          <% end %>
+          <button class="md-close">Track</button>
 
-              </center>
-            </div>
-          </div>
-        </div>
+        </center>
+      </div>
+    </div>
+  </div>
   <!-- MODAL POPUP TO ADD TO TRACK LIST-->
 
   <!-- DIV THAT ITEMS APPEND TO -->
@@ -51,7 +51,7 @@
       var low_cost = $('.formbox_lowrange').val().replace(" ","");
       var high_cost = $('.formbox_highrange').val().replace(" ","");
       var location = $('select').val();
-      var url = "http://" + location + ".craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=" + high_cost + "&minAsk=" + low_cost + "&query=" + item.replace(" ","%20")
+      var url = "http://" + location + ".craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=" + high_cost + "&minAsk=" + low_cost + "&query=" + item.replace(/\s/g, "%20")
       var user_id = $('.formbox_user_id').val();
       $.ajax({
         url: "/create",
