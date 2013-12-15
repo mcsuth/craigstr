@@ -1,13 +1,15 @@
-// Place all the styles related to the Tracks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+  // Place all the styles related to the Tracks controller here.
+  // They will automatically be included in application.css.
+  // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body {
-  background: #CCC;
+html, body {
+  background: #333;
   margin: 0px;
   padding: 0px;
   width: 100%;
   height: 100%;
+  font-family: sans-serif;
+  /*overflow: hidden;*/
 }
 div.div_that_tracked_items_append_to {
   border: 0px solid #000;
@@ -19,12 +21,33 @@ div.div_that_tracked_items_append_to {
   margin: 20px;
 }
 div#login {
-  text-align: right;
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  right: 200px;
+  /*border: 1px solid #000;*/
 }
-div#svg {
-  border: 1px solid #000;
-  float: right;
-  padding: 0;
-  position: relative;
-  z-index: -1;
+#mobilehand {
+  position: absolute;
+  z-index: 2;
+  bottom: -100px;
+  right: 50px;
+  /*border: 1px solid #000;*/
+}
+#hand {
+  width: 100%;
+  height: auto;
+}
+#mobilescreen {
+  background: #EEE;
+  height: 445px;
+  width: auto;
+}
+#computer {
+  width: 40%;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  top: 10%;
+  left: 5%;
 }
