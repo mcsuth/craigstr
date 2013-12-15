@@ -3,8 +3,8 @@
   // You can use Sass (SCSS) here: http://sass-lang.com/
 
 html, body {
-  background: #333;
-  margin: 0px;
+  background: #FFF;
+  margin-top: 75px;
   padding: 0px;
   width: 100%;
   height: 100%;
@@ -12,6 +12,7 @@ html, body {
   /*overflow: hidden;*/
 }
 div.div_that_tracked_items_append_to {
+  z-index: -111;
   border: 0px solid #000;
   background: #EEE;
   width: 100px;
@@ -20,18 +21,13 @@ div.div_that_tracked_items_append_to {
   padding: 10px;
   margin: 20px;
 }
-div#login {
-  position: absolute;
-  z-index: 10;
-  top: 50px;
-  right: 200px;
-  /*border: 1px solid #000;*/
-}
 #mobilehand {
   position: absolute;
-  z-index: 2;
-  bottom: -100px;
+  z-index: 1;
+  bottom: 0px;
   right: 50px;
+  height: 80%;
+  width: auto;
   /*border: 1px solid #000;*/
 }
 #hand {
@@ -46,8 +42,37 @@ div#login {
 #computer {
   width: 40%;
   height: auto;
-  position: absolute;
   z-index: 1;
   top: 10%;
   left: 8%;
+}
+input, #track_location {
+  background: lightyellow;
+  border-radius: 8px;
+  border: 1px solid #DDD;
+  padding: 10px;
+  margin: 10px;
+}
+nav#navbar.navbar.navbar-default {
+  z-index: 100;
+}
+@media screen and (max-width: 1024px) {
+  #mobilehand {
+    visibility:hidden;
+  }
+  #mobilescreen {
+    visibility:hidden;
+  }
+  #tracked_list {
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    left: 8%;
+  }
+  #tracked_items {
+    position: absolute;
+    z-index: 1;
+    top: 15%;
+    left: 1%;
+  }
 }
