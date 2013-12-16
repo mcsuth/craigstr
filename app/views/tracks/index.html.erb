@@ -1,7 +1,8 @@
 <div id="tracked_list">
 <% if current_user%>
   <!-- MODAL BUTTON TO POPUP -->
-  <button data-modal="modal-7" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#track">Add Items To Track</button>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#track">Add Items To Track</button>
+
   <!-- MODAL BUTTON TO POPUP -->
 
   <!-- THE OVERLAY ELEMENT FOR THE MODAL -->
@@ -13,19 +14,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-<!--         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
         <h2 class="modal-title" id="myModalLabel">Track Items Here</h2>
       </div>
       <div class="modal-body">
         <center>
           <input type="text" class="formbox_item" placeholder="Item To Track"></input>
-          <input type="text" class="formbox_lowrange" placeholder="Low Range. IE: 20.00"></input> -
+          <input type="text" class="formbox_lowrange" placeholder="Low Range. IE: 20.00"></input>
           <input type="text" class="formbox_highrange" placeholder="High Range. IE: 100.00"></input>
           <%= form_for @track, :remote => true do |f| %>
             <%= f.select :location, @places , class: "formbox_location" %>
             <%= f.hidden_field :user_id, value: current_user.id, class: "formbox_user_id"%>
           <% end %>
-
       </div>
       <div class="modal-footer">
         <button type="button" id="save" class="btn btn-primary" data-dismiss="modal">Track</button>

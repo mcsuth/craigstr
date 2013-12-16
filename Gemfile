@@ -7,7 +7,6 @@ gem 'rails', '3.2.14'
 
 gem 'sqlite3'
 gem 'pry'
-gem "craig"
 gem 'nokogiri'
 gem "open-uri-cached", "~> 0.0.5"
 

@@ -42,7 +42,8 @@
       <% else %>
         <li><%= link_to "Sign up", new_user_registration_path %></li>
         <li><%= link_to "Sign up", new_user_registration_path, :remote => true %></li>
-        <li><%= link_to "Login", new_user_session_path %> </li>
+        <!-- <li><#%= link_to "Login", new_user_session_path %> </li> -->
+        <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
       <% end %>
       <!-- Button trigger modal -->
       <!--<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
@@ -56,30 +57,43 @@
 <!-- NAVBAR -->
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- LOGIN MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="loginModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h2 class="modal-title" id="myModalLabel">Sign In</h2>
       </div>
       <div class="modal-body">
-        ...
+        <center>
+          <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+            <div><%= f.label :email %><br />
+            <%= f.email_field :email, :autofocus => true %></div>
+            <div><%= f.label :password %><br />
+            <%= f.password_field :password %></div>
+            <% if devise_mapping.rememberable? -%>
+              <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+            <% end -%>
+            <div><%= f.submit "Sign in" %></div>
+          <% end %>
+          <%= render "devise/shared/links" %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</div>
+
 
 
 
 
 <div id="mobilescreen">
-  <img src="/assets/screen.png" id="computer">
+  <p style="margin-left:100px;">
+    <img src="/assets/screen.png" id="computer">
+  </p>
 </div>
 
 <div id="mobilehand">
@@ -89,19 +103,5 @@
 <!-- WHEN A USER IS SIGNED THEY SEE THE PARTIAL -->
 <%= yield %>
 
-<div id="main">main div</div>
-
-<!-- MODAL -->
-<script src="/assets/classie.js"></script>
-<script src="/assets/modalEffects.js"></script>
-
-<!-- for the blur effect -->
-<script>
-    // this is important for IEs
-    var polyfilter_scriptpath = '/assets/css-filters-polyfill.js';
-</script>
-<script src="/assets/css-filters-polyfill.js"></script>
-<script src="/assets/cssParser.js"></script>
-<script src="/assets/css-filters-polyfill.js"></script>
 </body>
 </html>
