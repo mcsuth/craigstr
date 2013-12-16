@@ -7,7 +7,7 @@ class TracksController < ApplicationController
     @tracks = Track.all
 
     if user_signed_in?
-      @todos = current_user.tracks
+      @tracks = current_user.tracks
     end
 
     @track = Track.new

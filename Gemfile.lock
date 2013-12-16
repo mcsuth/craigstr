@@ -40,8 +40,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    craig (0.0.2)
-      nokogiri (~> 1.5.6)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -139,7 +137,6 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
-  craig
   devise
   jquery-rails
   nokogiri

@@ -84,7 +84,7 @@
           </center>
         </div>
         <div class="modal-footer">
-              <%= f.submit "Sign in", class: "btn btn-default" %>
+              <%= f.submit "Sign in", class: "btn btn-primary" %>
             <% end %>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
@@ -121,7 +121,7 @@
           </center>
         </div>
         <div class="modal-footer">
-              <%= f.submit "Sign Up", class: "btn btn-default" %>
+              <%= f.submit "Sign Up", class: "btn btn-primary" %>
             <% end %>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
@@ -159,19 +159,14 @@
 
           <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
           <%= f.password_field :current_password %></div>
-
-          <div><%= f.submit "Update" %></div>
-        <% end %>
-
-        <p><%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-<!--         <#%= link_to "Back", :back %> -->
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </center>
         </div>
-         <!--<div class="modal-footer">
-              <#%= f.submit "Sign Up", class: "btn btn-default" %>
-            <#% end %>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        <div class="modal-footer">
+            <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-danger" %><br/><br/>
+            <%= f.submit "Update", class: "btn btn-primary" %>
+          <% end %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
         </div>
     </div> <!-- END OF DIV: modal-content -->
   </div> <!-- END OF DIV: modal-dialog -->
