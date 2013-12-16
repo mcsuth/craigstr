@@ -438,18 +438,18 @@ class TracksController < ApplicationController
                           url: params[:url],
                           user_id: params[:user_id]
                           )
-    @item_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
-    @item_prices = Nokogiri::HTML(open(@track.url)).css('.price')
+    # @item_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
+    # @item_prices = Nokogiri::HTML(open(@track.url)).css('.price')
 
 
-    @item_titles.each do |item|
-      parsed_item = item.attr('href')
-      puts parsed_item
-      if !parsed_item.include?('http')
-        puts "no http"
-        puts @track.location
-      end
-      # binding.pry
+    # @item_titles.each do |item|
+    #   parsed_item = item.attr('href')
+    #   puts parsed_item
+    #   if !parsed_item.include?('http')
+    #     puts "no http"
+    #     puts @track.location
+    #   end
+    #   # binding.pry
     end
 
     # if @item_titles.include?(@track.title)
