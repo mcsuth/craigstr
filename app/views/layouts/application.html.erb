@@ -15,7 +15,6 @@
 </head>
 <body>
 
-
 <!-- NAVBAR -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navbar">
   <!-- HAMBURGER TOGGLE NAVBAR-->
@@ -28,6 +27,7 @@
     </button>
     <a class="navbar-brand" href="#">ALERT ME NOW</a>
   </div>
+
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
@@ -36,19 +36,18 @@
         <li><a class="active"><%= alert %></a></li>
       <% if user_signed_in? %>
         <li><a class="active">Logged in as <strong><%= current_user.email %></strong>.</a></li>
-        <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
-        <li><%= link_to "Edit Account", edit_user_registration_path, :remote => true, toggle: "modal", target: "#main" %></li>
+         <!--<li><#%= link_to 'Edit profile', edit_user_registration_path %></li> -->
+        <li><a href="#" data-toggle="modal" data-target="#track"><strong>Add Items To Track</strong></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#editModal">Edit Account</a></li>
         <li><%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li>
       <% else %>
-        <li><%= link_to "Sign up", new_user_registration_path %></li>
-        <li><%= link_to "Sign up", new_user_registration_path, :remote => true %></li>
+        <!-- <li><#%= link_to "Sign up", new_user_registration_path %></li> -->
         <!-- <li><#%= link_to "Login", new_user_session_path %> </li> -->
-        <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a> </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li>
       <% end %>
-      <!-- Button trigger modal -->
-      <!--<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-        Launch demo modal
-      </button> -->
       <!-- DEVISE LOGIN -->
     </ul>
   </div>
@@ -56,35 +55,132 @@
 </nav>
 <!-- NAVBAR -->
 
-
 <!-- LOGIN MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="loginModal">
   <div class="modal-dialog">
     <div class="modal-content">
+
       <div class="modal-header">
         <h2 class="modal-title" id="myModalLabel">Sign In</h2>
       </div>
-      <div class="modal-body">
-        <center>
-          <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-            <div><%= f.label :email %><br />
-            <%= f.email_field :email, :autofocus => true %></div>
-            <div><%= f.label :password %><br />
-            <%= f.password_field :password %></div>
-            <% if devise_mapping.rememberable? -%>
-              <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-            <% end -%>
-            <div><%= f.submit "Sign in" %></div>
+
+        <div class="modal-body">
+          <center>
+            <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+              <div>
+                <%= f.label :email %></br>
+                <%= f.email_field :email, :autofocus => true %>
+              </div>
+              <div>
+                <%= f.label :password %></br>
+                <%= f.password_field :password %>
+              </div>
+                <% if devise_mapping.rememberable? -%>
+                  <div>
+                    <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+                  </div>
+                <% end -%>
+            <%= render "devise/shared/links" %>
+          </center>
+        </div>
+        <div class="modal-footer">
+              <%= f.submit "Sign in", class: "btn btn-default" %>
+            <% end %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div> <!-- END OF DIV: modal-content -->
+  </div> <!-- END OF DIV: modal-dialog -->
+</div> <!-- END OF DIV: modal fade -->
+
+<!-- SIGNUP MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="signupModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+      </div>
+
+        <div class="modal-body">
+          <center>
+          <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div>
+              <%= f.label :email %><br />
+              <%= f.email_field :email, :autofocus => true %>
+            </div>
+            <div>
+              <%= f.label :password %><br />
+              <%= f.password_field :password %>
+            </div>
+            <div>
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation %>
+            </div>
+            <%= render "devise/shared/links" %>
+          </center>
+        </div>
+        <div class="modal-footer">
+              <%= f.submit "Sign Up", class: "btn btn-default" %>
+            <% end %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div> <!-- END OF DIV: modal-content -->
+  </div> <!-- END OF DIV: modal-dialog -->
+</div> <!-- END OF DIV: modal fade -->
+<!-- SIGNUP MODAL -->
+
+<!-- EDIT MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">Edit Account</h2>
+      </div>
+
+        <div class="modal-body">
+          <center>
+         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div><%= f.label :email %><br />
+          <%= f.email_field :email, :autofocus => true %></div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
           <% end %>
-          <%= render "devise/shared/links" %>
-      </div>
-      <div class="modal-footer">
+
+          <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.password_field :password, :autocomplete => "off" %></div>
+
+          <div><%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation %></div>
+
+          <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+          <%= f.password_field :current_password %></div>
+
+          <div><%= f.submit "Update" %></div>
+        <% end %>
+
+        <p><%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+<!--         <#%= link_to "Back", :back %> -->
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-</div>
+          </center>
+        </div>
+         <!--<div class="modal-footer">
+              <#%= f.submit "Sign Up", class: "btn btn-default" %>
+            <#% end %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        </div>
+    </div> <!-- END OF DIV: modal-content -->
+  </div> <!-- END OF DIV: modal-dialog -->
+</div> <!-- END OF DIV: modal fade -->
+<!-- SIGNUP MODAL -->
+
+
+
+
 
 
 
@@ -92,6 +188,7 @@
 
 <div id="mobilescreen">
   <p style="margin-left:100px;">
+    <br><br><br>
     <img src="/assets/screen.png" id="computer">
   </p>
 </div>

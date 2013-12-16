@@ -5,6 +5,11 @@ class TracksController < ApplicationController
 
   def index
     @tracks = Track.all
+
+    if user_signed_in?
+      @todos = current_user.tracks
+    end
+
     @track = Track.new
     @places = {
       "SF bay area"=>"sfbay",
