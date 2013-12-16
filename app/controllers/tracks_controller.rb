@@ -450,7 +450,7 @@ class TracksController < ApplicationController
     #     puts @track.location
     #   end
     #   # binding.pry
-    end
+    # end
 
     # if @item_titles.include?(@track.title)
     #   puts "there was something on CL that has this"
