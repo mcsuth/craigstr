@@ -18,7 +18,8 @@ class Track < ActiveRecord::Base
     self[:low_cost] = num.to_i
   end
 
-  def email
+  def deliver
+    update_attribute(:delivered_at, Time.zone.now)
   end
 
 end

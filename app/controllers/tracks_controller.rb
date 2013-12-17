@@ -1,4 +1,5 @@
 require 'pry'
+require 'open-uri'
 
 class TracksController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
@@ -441,12 +442,12 @@ class TracksController < ApplicationController
     @user = current_user.email
     if @track.save
       TrackMailer.track_confirmation(@user).deliver
-      # format.html { redirect_to("/", :notice => 'Item tracked!') }
-      # format.xml  { render :xml => @track, :status => :created, :location => @track }
-    else
-      # format.html { render :action => "new" }
-      # format.xml  { render :xml => @track.errors, :status => :unprocessable_entity }
     end
+
+    @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a').text.delay(queue: "tracked_items", run_at: 1.minute.from_now)
+
+    p @daily_parser
+
     # @item_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
     # @item_prices = Nokogiri::HTML(open(@track.url)).css('.price')
 
@@ -496,11 +497,6 @@ class TracksController < ApplicationController
   #   # render json: test
   # end
 
-  # def link
-  #   url = "http://sfbay.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=555&minAsk=333&query=" + $searched_item
-  #   @links = Nokogiri::HTML(open(url)).css('.pl a').map { |link| link['href'] }
-  #   render json: @links
-  # end
 
 end
 
