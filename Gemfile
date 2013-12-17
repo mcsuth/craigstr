@@ -25,3 +25,4 @@ group :production do
 end
 
 gem 'devise'
+gem 'delayed_job_active_record'

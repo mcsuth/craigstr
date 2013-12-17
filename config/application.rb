@@ -60,5 +60,18 @@ module Craigstr
     config.assets.version = '1.0'
 
     config.assets.initialize_on_precompile = false
+
+
+    # config.action_mailer.delivery_method = :smtp
+    # config.action_mailer.smtp_settings = {
+    #   :address => "smtp.gmail.com",
+    #   :port => 587,
+    #   :domain => 'alertminow.herokuapp.com',
+    #   :user_name => 'alertminow@gmail.com',
+    #   :password => 'demodemodemo123',
+    #   :authentication => 'plain',
+    #   :enable_starttls_auto => true
+    # }
+
   end
 end

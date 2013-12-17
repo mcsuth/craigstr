@@ -429,7 +429,6 @@ class TracksController < ApplicationController
   end
 
   def create
-    # @track = Track.create(params[:track])
     @track = Track.create(
                           title: params[:item],
                           low_cost: params[:low_cost],
@@ -438,6 +437,16 @@ class TracksController < ApplicationController
                           url: params[:url],
                           user_id: params[:user_id]
                           )
+
+    @user = current_user.email
+    if @track.save
+      TrackMailer.track_confirmation(@user).deliver
+      # format.html { redirect_to("/", :notice => 'Item tracked!') }
+      # format.xml  { render :xml => @track, :status => :created, :location => @track }
+    else
+      # format.html { render :action => "new" }
+      # format.xml  { render :xml => @track.errors, :status => :unprocessable_entity }
+    end
     # @item_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
     # @item_prices = Nokogiri::HTML(open(@track.url)).css('.price')
 

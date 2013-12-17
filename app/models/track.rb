@@ -18,4 +18,7 @@ class Track < ActiveRecord::Base
     self[:low_cost] = num.to_i
   end
 
+  def email
+  end
+
 end
