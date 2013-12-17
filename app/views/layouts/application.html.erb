@@ -174,26 +174,30 @@
 <!-- SIGNUP MODAL -->
 
 
-
-
-
-
-
-
-
 <div id="mobilescreen">
-  <p style="margin-left:100px;">
-    <br><br><br>
-    <img src="/assets/screen.png" id="computer">
-  </p>
+  <img src="/assets/screen.png" id="computer">
 </div>
 
 <div id="mobilehand">
   <img src="/assets/hand.png" id="hand">
 </div>
 
+<% if !current_user%>
+  <div id="info">
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <p>
+      ABOUT AND SHIT
+    </p>
+  </div>
+<% end %>
 <!-- WHEN A USER IS SIGNED THEY SEE THE PARTIAL -->
 <%= yield %>
 
+<% if !current_user%>
+  <p>
+    CREATED BY AND SHIT
+  </p>
+<% end %>
 </body>
 </html>

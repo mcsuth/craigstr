@@ -444,7 +444,9 @@ class TracksController < ApplicationController
       TrackMailer.track_confirmation(@user).deliver
     end
 
-    @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a').text.delay(queue: "tracked_items", run_at: 1.minute.from_now)
+    @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a')
+
+    # @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a').text.delay(queue: "tracked_items", run_at: 1.minute.from_now)
 
     p @daily_parser
 

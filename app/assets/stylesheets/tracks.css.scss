@@ -11,8 +11,8 @@ html, body {
   font-family: sans-serif;
   /*overflow: hidden;*/
 }
-div.div_that_tracked_items_append_to {
-  z-index: -111;
+.div_that_tracked_items_append_to {
+  z-index: -1;
   border: 0px solid #000;
   background: #EEE;
   width: 100px;
@@ -20,31 +20,42 @@ div.div_that_tracked_items_append_to {
   float: left;
   padding: 10px;
   margin: 20px;
+  margin-top: 470px;
+}
+#tracked_items {
+  background: #333;
+  width: 100%;
+  height: 97.75%;
+}
+#info {
+  background: #333;
+  width: 100%;
+  height: 97.75%;
+  color: #FFF;
 }
 #mobilehand {
   position: absolute;
   z-index: 1;
-  bottom: 0px;
-  right: 50px;
+  right: 0px;
   height: 80%;
   width: auto;
   /*border: 1px solid #000;*/
 }
 #hand {
-  width: 100%;
+  width: 555px;
   height: auto;
 }
 #mobilescreen {
+  position: absolute;
   background: #EEE;
   height: 445px;
-  width: auto;
+  width: 100%;
 }
 #computer {
-  width: 40%;
+  width: 555px;
   height: auto;
-  z-index: 1;
-  top: 10%;
-  left: 8%;
+  margin-top:50px;
+  margin-left:100px;
 }
 input, #track_location {
   background: lightyellow;
@@ -56,7 +67,7 @@ input, #track_location {
 nav#navbar.navbar.navbar-default {
   z-index: 100;
 }
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
   #mobilehand {
     visibility:hidden;
   }
