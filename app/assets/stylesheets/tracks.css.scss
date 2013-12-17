@@ -21,6 +21,7 @@ html, body {
   padding: 10px;
   margin: 20px;
   margin-top: 470px;
+  border-radius: 10px;
 }
 #tracked_items {
   background: #333;
@@ -85,5 +86,16 @@ nav#navbar.navbar.navbar-default {
     z-index: 1;
     top: 15%;
     left: 1%;
+    width: 98%;
+  }
+  .div_that_tracked_items_append_to {
+    z-index: -1;
+    border: 0px solid #000;
+    background: #EEE;
+    width: 100px;
+    height: auto;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
   }
 }
