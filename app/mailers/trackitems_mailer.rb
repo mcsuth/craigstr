@@ -1,9 +1,17 @@
+require 'open-uri'
 class TrackitemsMailer < ActionMailer::Base
   default :from => "alertminow@gmail.com"
 
   def trackitems_mail(user)
+    puts "**"*50
+    p self
+    p user
+    puts "**"*50
+    puts DateTime.now
+    puts "**"*50
     @user = user.email
     @item = user.tracks.last
+    @foo_item = Nokogiri::HTML(open("https://www.google.com"))
     @daily_parser = Nokogiri::HTML(open(@item.url)).css('.pl a')
     titles = []
     @daily_parser.each do |title|
@@ -15,7 +23,8 @@ class TrackitemsMailer < ActionMailer::Base
         url_end = href.attr('href')
         hrefs << url_end
       else
-        newHrefs = "http://#{@item.location}.craigslist.org/#{url_end}"
+        url_end = href.attr('href')
+        newHrefs = "http://#{@item.location}.craigslist.org#{url_end}"
         hrefs << newHrefs
       end
     end

@@ -449,7 +449,11 @@ class TracksController < ApplicationController
     # Action-mailer: Every time a user adds an item to track, they will get an email stating that it will be tracked
       TrackMailer.track_confirmation(@user).deliver
     # Action-mailer && Delayed_Jobs: When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
-      TrackitemsMailer.trackitems_mail(@user).deliver
+
+      delayed = TrackitemsMailer.delay(run_at: 1.minutes.from_now).trackitems_mail(@user)
+      # puts "***"*50
+      # p delayed
+      # TrackitemsMailer.delay.trackitems_mail(@user)
       # TrackitemsMailer.delay(run_at:  DateTime.now + 1.minute).trackitems_mail(@user)
 
       # This didn't work/////////////////////////////////////////
