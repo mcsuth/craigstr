@@ -451,30 +451,23 @@ class TracksController < ApplicationController
 
     # When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
     @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a')
-    @daily_parser.to_a.each do |links|
-      $array_links = []
-      link = links.attr('href')
-        if !link.include?('http')
-          newlinks = "http://#{@track.location}.craigslist.org/" + link
-          $array_links << newlinks
-        else
-          $array_links << link
-        end
-      p $array_links.class
+
+    titles = []
+    @daily_parser.each do |title|
+      titles << title.text
     end
 
-    @daily_parser_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
-    @daily_parser_titles.to_a.each do |titles|
-      $array_titles = []
-      title = titles.text
-      if true
-        $array_titles << title
+    hrefs = []
+    @daily_parser.each do |href|
+      if !href.include?('http')
+        newHrefs = "http://#{@track.location}.craigslist.org/" + href
+        hrefs << newHrefs
+      else
+        hrefs << href.attr('href')
       end
-      p $array_title
     end
 
-    new_hash = Hash[$array_links.zip $array_titles]
-    puts new_hash
+    p hashMe = Hash[titles.zip hrefs]
 
   end
 
