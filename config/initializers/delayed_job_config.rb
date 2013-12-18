@@ -1,2 +1,2 @@
-Delayed::Worker.max_attempts = 5
+Delayed::Worker.run_interval = 15
 Delayed::Worker.delay_jobs = !Rails.env.test?

@@ -443,31 +443,17 @@ class TracksController < ApplicationController
                           user_id: params[:user_id]
                           )
 
-    # Action-mailer: Every time a user adds an item to track, they will get an email stating that it will be tracked
-    @user = current_user.email
+    @user = current_user
     if @track.save
+    # Action-mailer: Every time a user adds an item to track, they will get an email stating that it will be tracked
       TrackMailer.track_confirmation(@user).deliver
+    # Action-mailer && Delayed_Jobs: When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
+      TrackitemsMailer.trackitems_mail(@user).deliver
+
+      # This didn't work/////////////////////////////////////////
+      # mail_object = TrackitemsMailer.trackitems_mail(@user).deliver
+      # TrackitemsMailer.new(mail_object).deliver
     end
-
-    # When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
-    @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a')
-
-    titles = []
-    @daily_parser.each do |title|
-      titles << title.text
-    end
-
-    hrefs = []
-    @daily_parser.each do |href|
-      if !href.include?('http')
-        newHrefs = "http://#{@track.location}.craigslist.org/" + href
-        hrefs << newHrefs
-      else
-        hrefs << href.attr('href')
-      end
-    end
-
-    p hashMe = Hash[titles.zip hrefs]
 
   end
 
