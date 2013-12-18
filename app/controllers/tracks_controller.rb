@@ -5,13 +5,17 @@ class TracksController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
 
   def index
-    @tracks = Track.all
-
+    # @tracks = Track.all
+    # When the user is signed in, website will display the current user's tracked items
+    # If the user is not signed in, nothing will be displayed
     if user_signed_in?
       @tracks = current_user.tracks
     end
 
     @track = Track.new
+
+    # This is for user to track their items
+    # It is for the location drop-down
     @places = {
       "SF bay area"=>"sfbay",
       "abilene"=>"abilene",
@@ -439,39 +443,39 @@ class TracksController < ApplicationController
                           user_id: params[:user_id]
                           )
 
+    # Action-mailer: Every time a user adds an item to track, they will get an email stating that it will be tracked
     @user = current_user.email
     if @track.save
       TrackMailer.track_confirmation(@user).deliver
     end
 
+    # When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
     @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a')
+    @daily_parser.to_a.each do |links|
+      $array_links = []
+      link = links.attr('href')
+        if !link.include?('http')
+          newlinks = "http://#{@track.location}.craigslist.org/" + link
+          $array_links << newlinks
+        else
+          $array_links << link
+        end
+      p $array_links.class
+    end
 
-    # @daily_parser = Nokogiri::HTML(open(@track.url)).css('.pl a').text.delay(queue: "tracked_items", run_at: 1.minute.from_now)
+    @daily_parser_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
+    @daily_parser_titles.to_a.each do |titles|
+      $array_titles = []
+      title = titles.text
+      if true
+        $array_titles << title
+      end
+      p $array_title
+    end
 
-    p @daily_parser
+    new_hash = Hash[$array_links.zip $array_titles]
+    puts new_hash
 
-    # @item_titles = Nokogiri::HTML(open(@track.url)).css('.pl a')
-    # @item_prices = Nokogiri::HTML(open(@track.url)).css('.price')
-
-
-    # @item_titles.each do |item|
-    #   parsed_item = item.attr('href')
-    #   puts parsed_item
-    #   if !parsed_item.include?('http')
-    #     puts "no http"
-    #     puts @track.location
-    #   end
-    #   # binding.pry
-    # end
-
-    # if @item_titles.include?(@track.title)
-    #   puts "there was something on CL that has this"
-    # else
-    #   puts "nothing was found on CL"
-    # end
-    # respond_to do |format|
-    #   format.js
-    # end
   end
 
   def destroy
@@ -481,24 +485,6 @@ class TracksController < ApplicationController
       format.js
     end
   end
-
-  # def search
-  #   url = "http://sfbay.craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=555&minAsk=333&query=honda"
-  #   # url = "http://[LOCATION_CODE].craigslist.org/search/sss?sort=priceasc&catAbb=sss&maxAsk=[MAX_PRICE]&minAsk=[MIN_PRICE]&query=[SEARCHED_ITEM]"
-  #   @item_titles = Nokogiri::HTML(open(url)).css('.pl a')
-  #   @item_prices = Nokogiri::HTML(open(url)).css('.price')
-  #   titles = []
-  #   prices = []
-  #   @item_titles.each do |item_title|
-  #     titles << item_title.text
-  #   end
-  #   @item_prices.each do |item_price|
-  #     prices << item_price.text
-  #   end
-  #   # test = Hash[titles.zip prices]
-  #   # render json: test
-  # end
-
 
 end
 
