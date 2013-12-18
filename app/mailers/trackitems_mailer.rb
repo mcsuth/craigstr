@@ -9,6 +9,7 @@ class TrackitemsMailer < ActionMailer::Base
     puts "**"*50
     puts DateTime.now
     puts "**"*50
+
     @user = user.email
     @item = user.tracks.last
     @foo_item = Nokogiri::HTML(open("https://www.google.com"))

@@ -445,20 +445,19 @@ class TracksController < ApplicationController
 
     @user = current_user
     if @track.save
-      flash[:notice] = "Item Added to Track!"
-    # Action-mailer: Every time a user adds an item to track, they will get an email stating that it will be tracked
-      TrackMailer.track_confirmation(@user).deliver
-    # Action-mailer && Delayed_Jobs: When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
+      # Action-mailer && Delayed_Jobs: Every time a user adds an item to track, they will get an email stating that it will be tracked
+      # This, RIGHT NOW, sends out an email with the links 1 minute from now - It speeds up the appending of the item on the website.
+      # TrackMailer.track_confirmation(@user).deliver
+      delayed1 = TrackMailer.delay(run_at: 1.minutes.from_now).track_confirmation(@user)
+      puts "***"*50
+      p delayed1
 
-      delayed = TrackitemsMailer.delay(run_at: 1.minutes.from_now).trackitems_mail(@user)
-      # puts "***"*50
-      # p delayed
-      # TrackitemsMailer.delay.trackitems_mail(@user)
-      # TrackitemsMailer.delay(run_at:  DateTime.now + 1.minute).trackitems_mail(@user)
+      # Action-mailer && Delayed_Jobs: When a user adds an item to track, a CL url is generated and it will be parsed via Nokogiri @ set intervals until the user removes their item from the list
+      # This, RIGHT NOW, sends out an email with the links 1 minute from now.
+      delayed2 = TrackitemsMailer.delay(run_at: 1.minutes.from_now).trackitems_mail(@user)
+      puts "***"*50
+      p delayed2
 
-      # This didn't work/////////////////////////////////////////
-      # mail_object = TrackitemsMailer.trackitems_mail(@user).deliver
-      # TrackitemsMailer.new(mail_object).deliver
     end
 
   end
