@@ -2,9 +2,11 @@
 
 You wanted to track these items. Check out these links.
 
+<% @hashMe.each do |title, link| %>
+  <%= title %>: <%= link %>
+<% end %>
+
 You're receive another email from us in 24 hours with some more links!
 
 Cheers,
 ALERTMINOW
-
-<%= @hashMe %>

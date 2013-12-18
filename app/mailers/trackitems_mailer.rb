@@ -23,4 +23,5 @@ class TrackitemsMailer < ActionMailer::Base
 
     mail(:to => @user, :subject => "ALERTMINOW - Check These Items Out!")
   end
+
 end

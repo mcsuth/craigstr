@@ -6,4 +6,5 @@ class TrackMailer < ActionMailer::Base
     @item = user.tracks.last
     mail(:to => @user, :subject => "ALERTMINOW - Tracked: #{@item.title.upcase}")
   end
+  # handle_asynchronously :in_the_future, :run_at => Proc.new { 5.minutes.from_now }
 end
