@@ -3,8 +3,8 @@ class TrackMailer < ActionMailer::Base
 
   def track_confirmation(user)
     @user = user.email
-    @item = user.tracks.where(user_id: user.id)
-    mail(:to => @user, :subject => "ALERTMINOW - Tracked: #{}")
+    @item = user.tracks
+    mail(:to => @user, :subject => "ALERTMINOW - Tracked #{@item.last.title}")
   end
 
   def in_the_future
