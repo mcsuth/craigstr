@@ -68,7 +68,17 @@ input, #track_location {
 nav#navbar.navbar.navbar-default {
   z-index: 100;
 }
+@media (min-width: 1024px) {
+  img#mini {
+    display:none;
+  }
+}
 @media (max-width: 1024px) {
+  img#mini {
+  width: 100%;
+  height: auto;
+  visibility: visible;
+}
   #mobilehand {
     visibility:hidden;
   }
@@ -97,5 +107,8 @@ nav#navbar.navbar.navbar-default {
     padding: 10px;
     margin: 20px;
     border-radius: 10px;
+  }
+  div#info, p#gitme {
+    display:none;
   }
 }

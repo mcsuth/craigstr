@@ -174,6 +174,7 @@
 </div> <!-- END OF DIV: modal fade -->
 <!-- SIGNUP MODAL -->
 
+  <img src="/assets/mini.png" id="mini">
 
 <div id="mobilescreen">
   <img src="/assets/screen.png" id="computer">
@@ -182,7 +183,6 @@
 <div id="mobilehand">
   <img src="/assets/hand.png" id="hand">
 </div>
-
 <% if !current_user%>
   <div id="info">
     <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -197,7 +197,7 @@
 <%= yield %>
 
 <% if !current_user%>
-  <p style="margin-left:50px; margin-top: 5px;">
+  <p style="margin-left:50px; margin-top: 5px;" id="gitme">
     <a href="https://github.com/mcsuth/" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a> <a>by Smith Suth.</a>
   </p>
 <% end %>
