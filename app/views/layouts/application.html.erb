@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ALERTMINOW</title>
+  <title>ALERTminow</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -11,6 +11,7 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <!-- CDN FOR BOOTSTRAP MODAL -->
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 </head>
 <body>
@@ -25,7 +26,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">ALERTMINOW</a>
+    <a class="navbar-brand" href="#">ALERTminow</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -186,8 +187,9 @@
   <div id="info">
     <br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br>
-    <p>
-      ABOUT AND SHIT
+    <h1 style="margin-left:50px; margin-top: 30px;"><i class="fa fa-dot-circle-o"></i> ABOUT</h1>
+    <p style="margin-left:50px; font-size: 20px; width: 900px;">
+      Want something on Craigslist? ... But theres so much stuff to go through there! <i class="fa fa-frown-o"></i><br/><br/>Use ALERTminow to save your sanity. All you have to do is add an item to track and you'll receive an email every day with links until your find what you want.
     </p>
   </div>
 <% end %>
@@ -195,8 +197,8 @@
 <%= yield %>
 
 <% if !current_user%>
-  <p>
-    CREATED BY AND SHIT
+  <p style="margin-left:50px; margin-top: 5px;">
+    <a href="https://github.com/mcsuth/" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a> <a>by Smith Suth.</a>
   </p>
 <% end %>
 </body>
